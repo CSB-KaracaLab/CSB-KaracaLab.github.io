@@ -9,8 +9,8 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#F7F8FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1420" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='9' cy='9' r='7' fill='%23B03A57'/%3E%3Ccircle cx='23' cy='9' r='7' fill='%23896610'/%3E%3Ccircle cx='9' cy='23' r='7' fill='%232F5FA8'/%3E%3Ccircle cx='23' cy='23' r='7' fill='%23497634'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="canonical" href="https://csb-karacalab.github.io/">
 <meta property="og:url" content="https://csb-karacalab.github.io/">
@@ -102,10 +102,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:col
 .nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:60px}
 .brand{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--serif);font-size:1.25rem;font-weight:600;text-decoration:none;color:var(--ink);white-space:nowrap}
 .brand:hover{color:var(--ink)}
-.brand .mark{display:grid;grid-template-columns:repeat(2,.42rem);gap:.14rem}
-.brand .mark i{display:block;width:.42rem;height:.42rem;border-radius:50%}
-.brand .mark i:nth-child(1){background:var(--c1)} .brand .mark i:nth-child(2){background:var(--c2)}
-.brand .mark i:nth-child(3){background:var(--c3)} .brand .mark i:nth-child(4){background:var(--c4)}
+.brand .mark{display:block;flex:none}.brand .mark img{display:block;height:2.4rem;width:auto}
 .brand .lab{color:var(--ink-2);font-weight:500}
 nav{min-width:0}
 nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
@@ -372,7 +369,7 @@ img{max-width:100%;height:auto}
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Karaca<span class="lab">Lab</span></span></a>
+    <a class="brand" href="#top"><picture class="mark"><source srcset="brand-dark.png" media="(prefers-color-scheme: dark)"><img src="brand.png" alt="" width="288" height="144"></picture><span>Karaca<span class="lab">Lab</span></span></a>
     <nav aria-label="Sections"><ul>
       <li><a href="#research">Research</a></li>
       <li><a href="#software">Software</a></li>
