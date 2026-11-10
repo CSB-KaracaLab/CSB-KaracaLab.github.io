@@ -104,18 +104,19 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:col
 .brand .mark{display:block;flex:none;width:1.6rem;height:1.6rem}
 .brand .lab{color:var(--ink-2);font-weight:500}
 nav{min-width:0}
-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
+nav ul{list-style:none;margin:0 -.65rem 0 0;padding:0;display:flex;gap:.15rem;overflow-x:auto;scrollbar-width:none}
 nav ul::-webkit-scrollbar{display:none}
-nav a{display:block;font-size:.9rem;color:var(--ink-2);text-decoration:none;white-space:nowrap;padding-block:.15rem}
-nav a:hover{color:var(--ink)}
+nav a{display:block;font-size:.9rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap;padding:.38rem .65rem;border-radius:999px;transition:background-color .15s,color .15s}
+nav a:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 8%,transparent)}
+nav a[aria-current]{background:color-mix(in srgb,var(--navy) 12%,transparent);color:var(--navy)}
 @media (max-width:760px){
   .nav{flex-direction:column;align-items:flex-start;gap:0;padding-block:.35rem 0}
   .brand{padding-block:.25rem}
   nav{width:100%}
-  nav ul{flex-wrap:wrap;gap:0 1.1rem;overflow:visible;padding:0 0 .25rem}
-  nav a{font-size:.88rem;padding-block:.38rem}
+  nav ul{flex-wrap:wrap;gap:.1rem .1rem;overflow:visible;padding:0 0 .35rem;margin:0 0 0 -.6rem}
+  nav a{font-size:.88rem;padding:.38rem .6rem}
 }
-@media (max-width:400px){nav ul{gap:0 .9rem}nav a{font-size:.84rem}}
+@media (max-width:400px){nav a{font-size:.84rem;padding:.36rem .5rem}}
 
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr);gap:1.6rem;padding-block:4rem 1rem}
@@ -627,6 +628,14 @@ img{max-width:100%;height:auto}
 </footer>
 
 <script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]')); if(!links.length||!('IntersectionObserver' in window)) return;
+  var map={}, seen={}; links.forEach(function(a){var el=document.getElementById(a.getAttribute('href').slice(1)); if(el) map[el.id]=a});
+  function pick(){var best=null; Object.keys(seen).forEach(function(id){ if(seen[id]&&(!best||document.getElementById(id).offsetTop<document.getElementById(best).offsetTop)) best=id });
+    links.forEach(function(a){ if(map[best]===a) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current') })}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){seen[e.target.id]=e.isIntersecting}); pick()},{rootMargin:'-35% 0px -60% 0px'});
+  Object.keys(map).forEach(function(id){io.observe(document.getElementById(id))});
+})();
 (function(){
   var h=document.querySelector('header'); if(!h) return;
   function set(){document.documentElement.style.setProperty('--hdr',h.offsetHeight+'px')}
