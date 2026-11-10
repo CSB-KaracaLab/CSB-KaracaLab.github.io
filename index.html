@@ -130,7 +130,7 @@ nav a:hover{color:var(--ink)}
 .hero h1 em{font-style:italic}
 .hero h1 em.v1{color:var(--c1)} .hero h1 em.v2{color:var(--c2)} .hero h1 em.v3{color:var(--c3)} .hero h1 em.v4{color:var(--c4)}
 .hero-text{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem}
-.lede{font-size:1.25rem;line-height:1.62;color:var(--ink-2);max-width:64ch}
+.lede{font-size:1.25rem;line-height:1.62;color:var(--ink-2)}
 .hl2{color:var(--c2);font-weight:500;font-style:italic}
 .hero-side{border-top:1px solid var(--line);padding:1.1rem 0 0;display:flex;align-items:baseline;justify-content:space-between;gap:.8rem 3rem;flex-wrap:wrap}
 .hero-side .links{margin-top:0;flex-shrink:0}
@@ -150,7 +150,7 @@ nav a:hover{color:var(--ink)}
 section{padding-block:4rem}
 .sec-head{display:grid;gap:.7rem;margin-bottom:2.2rem}
 .sec-head h2{font-size:clamp(1.6rem,2.8vw,2.1rem);line-height:1.15;letter-spacing:-.01em}
-.sec-head p{color:var(--ink-2);font-size:1.08rem;line-height:1.6;max-width:72ch}
+.sec-head p{color:var(--ink-2);font-size:1.08rem;line-height:1.6}
 .more,.compute,.thesis-link{margin-top:1.8rem;font-size:.9rem;line-height:1.6;color:var(--ink-2)}
 @media (max-width:640px){section{padding-block:3rem}.sec-head{margin-bottom:1.8rem}}
 
@@ -282,7 +282,7 @@ section{padding-block:4rem}
 .pi-main,.pi .bio{grid-column:2;min-width:0}
 .pi-prof{display:flex;gap:1.1rem;margin-top:.6rem;font-size:.9rem;font-weight:500}
 .pi .role{font-size:.9rem;color:var(--ink-2);margin-top:.35rem}
-.pi .bio{max-width:75ch;font-size:.95rem;display:grid;gap:.8rem;align-content:start;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.pi .bio{font-size:.95rem;display:grid;gap:.8rem;align-content:start;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--line)}
 @media (max-width:820px){.pi{grid-template-columns:7.5rem minmax(0,1fr);column-gap:1.6rem}.pi-photo{grid-row:1;width:7.5rem;height:7.5rem}.pi .bio{grid-column:1 / -1}}
 @media (max-width:640px){.pi{grid-template-columns:5.75rem minmax(0,1fr);column-gap:1.1rem}.pi-photo{width:5.75rem;height:5.75rem}.pi h3{margin-top:.3rem}.pi .role{font-size:.9rem}}
 .members{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 2.5rem}
@@ -356,6 +356,8 @@ footer{border-top:1px solid var(--line);padding-block:1.8rem 2.4rem;font-size:.8
 footer .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem 1.5rem;flex-wrap:wrap}
 footer a{color:var(--ink-2);text-decoration:none}
 footer a:hover{color:var(--ink)}
+/* justified running text from tablet width up */
+@media (min-width:700px){.lede,.sec-head p,.pi .bio p,.contact .invite,.pi-line.contact-led{text-align:justify;hyphens:auto;-webkit-hyphens:auto}}
 /* carried over from the removed viewer wrapper, plus helpers */
 img{max-width:100%;height:auto}
 [hidden]{display:none!important}
@@ -395,7 +397,7 @@ img{max-width:100%;height:auto}
     </div>
     <div class="hero-side">
       <p class="pi-line">Led by <a href="#pi"><strong>Ezgi Karaca</strong></a> · Izmir Biomedicine and Genome Center, Türkiye</p>
-      <p class="links"><a href="#contact">Join us: PhD and postdoc enquiries</a><a href="https://scholar.google.com/citations?user=5mt6w7MAAAAJ&amp;hl=en" target="_blank" rel="noopener">Publications</a><a href="https://github.com/CSB-KaracaLab" target="_blank" rel="noopener">GitHub</a></p>
+      <p class="links"><a href="https://scholar.google.com/citations?user=5mt6w7MAAAAJ&amp;hl=en" target="_blank" rel="noopener">Publications</a><a href="https://github.com/CSB-KaracaLab" target="_blank" rel="noopener">GitHub</a></p>
     </div>
 
   </div>
