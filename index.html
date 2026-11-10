@@ -361,7 +361,7 @@ img{max-width:100%;height:auto}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .skip{position:absolute;left:1rem;top:-4rem;z-index:20;padding:.5rem .9rem;background:var(--ink);color:var(--paper);border-radius:6px;text-decoration:none}
 .skip:focus{top:calc(.5rem + env(safe-area-inset-top,0px))}
-.iface-pause{margin-top:.2rem}
+#iface{cursor:pointer;border-radius:12px}#iface:focus-visible{outline:2px solid var(--navy);outline-offset:4px}
 </style>
 </head>
 <body>
@@ -411,7 +411,7 @@ img{max-width:100%;height:auto}
           <div class="rnode c3 n2"><span class="rdot" aria-hidden="true">2</span><a class="rt" href="#rl-iface">Interface change</a><p class="rq">Which mutations rewire an interface?</p></div>
           <div class="rmap-center">
             <div class="iface-stage">
-        <canvas id="iface" width="600" height="400" role="img" aria-label="Space-filling model of the XRCC1 (blue) and DNA polymerase β (rose) interface, PDB 3K75, with 13 contact lines whose weight shows how persistent each contact is" aria-describedby="rmap-cap"></canvas><noscript><style>#iface,.iface-chain,#iface-pause{display:none}</style></noscript>
+        <canvas id="iface" width="600" height="400" role="img" aria-label="Space-filling model of the XRCC1 (blue) and DNA polymerase β (rose) interface, PDB 3K75, with 13 contact lines whose weight shows how persistent each contact is. Press Enter to pause or resume the motion." aria-describedby="rmap-cap"></canvas><noscript><style>#iface,.iface-chain{display:none}</style></noscript>
         <span class="iface-chain" style="left:18%;top:13%" aria-hidden="true">XRCC1</span>
         <span class="iface-chain" style="left:86%;top:10%" aria-hidden="true">Pol β</span>
       </div>
@@ -428,7 +428,6 @@ img{max-width:100%;height:auto}
         <li class="hp"><svg width="26" height="6" viewBox="0 0 26 6" aria-hidden="true"><line x1="2" y1="3" x2="25" y2="3" stroke="currentColor" stroke-width="3.6" stroke-dasharray="0.01 5.4" stroke-linecap="round"/></svg>Hydrophobic contact (dotted) <span class="kn">×7</span></li>
         <li class="pscale"><svg width="34" height="10" viewBox="0 0 34 10" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><line x1="1" y1="5" x2="12" y2="5" stroke-width="1.2" stroke-opacity="0.5"/><line x1="18" y1="5" x2="33" y2="5" stroke-width="4" stroke-opacity="1"/></g></svg>Line weight: transient → persistent</li>
       </ul>
-          <button type="button" class="copy iface-pause" id="iface-pause" aria-pressed="false">Pause animation</button>
         </div>
         <figcaption class="rcap" id="rmap-cap">XRCC1–DNA polymerase β interface (PDB 3K75): 13 contacts traced across a 200‑frame DynaBench trajectory with DynaPIN, each drawn by its persistence (share of frames in which the contact exists, 18–100%).</figcaption>
       </figure>
@@ -777,10 +776,12 @@ img{max-width:100%;height:auto}
   setTimeout(function(){ raster(A); setTimeout(function(){ raster(B); ready=true; colors(); frame(0); start(); cv.style.opacity='1' },0) },0);
   function retheme(){colors(); if(reduce) frame(0); else if(paused) frame(last)}
   try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retheme)}catch(e){}
-  var pb=document.getElementById('iface-pause');
-  function syncPause(){ if(pb) pb.hidden=reduce }
-  if(pb){ syncPause(); pb.addEventListener('click',function(){paused=!paused; pb.setAttribute('aria-pressed',paused); pb.textContent=paused?'Play animation':'Pause animation'; start()}) }
-  try{mq&&mq.addEventListener('change',function(){reduce=mq.matches;syncPause();start()})}catch(e){}
+  // no visible control: click, tap or Enter/Space on the figure pauses and resumes the motion
+  cv.tabIndex=0; cv.title='Click to pause or resume';
+  function toggle(){ if(reduce) return; paused=!paused; start() }
+  cv.addEventListener('click',toggle);
+  cv.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle() } });
+  try{mq&&mq.addEventListener('change',function(){reduce=mq.matches;start()})}catch(e){}
   new MutationObserver(retheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   document.addEventListener('visibilitychange',function(){ if(document.hidden){cancelAnimationFrame(raf);raf=0} else start() });
   if('IntersectionObserver' in window) new IntersectionObserver(function(es){ onscreen=es[es.length-1].isIntersecting; if(onscreen&&!raf&&!reduce&&!paused) start() }).observe(cv);
