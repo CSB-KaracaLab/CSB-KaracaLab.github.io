@@ -628,12 +628,15 @@ img{max-width:100%;height:auto}
 
 <script>
 (function(){
-  var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]')); if(!links.length||!('IntersectionObserver' in window)) return;
-  var map={}, seen={}; links.forEach(function(a){var el=document.getElementById(a.getAttribute('href').slice(1)); if(el) map[el.id]=a});
-  function pick(){var best=null; Object.keys(seen).forEach(function(id){ if(seen[id]&&(!best||document.getElementById(id).offsetTop<document.getElementById(best).offsetTop)) best=id });
-    links.forEach(function(a){ if(map[best]===a) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current') })}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){seen[e.target.id]=e.isIntersecting}); pick()},{rootMargin:'-35% 0px -60% 0px'});
-  Object.keys(map).forEach(function(id){io.observe(document.getElementById(id))});
+  /* scrollspy: the active section is the last one whose top has passed 40% of the viewport; at the very bottom, the last section */
+  var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]')), secs=[];
+  links.forEach(function(a){var el=document.getElementById(a.getAttribute('href').slice(1)); if(el) secs.push([el,a])});
+  if(!secs.length) return;
+  function pick(){var vh=window.innerHeight, best=null;
+    if(vh+window.scrollY>=document.documentElement.scrollHeight-4) best=secs[secs.length-1];
+    else secs.forEach(function(p){ if(p[0].getBoundingClientRect().top<=vh*.4) best=p });
+    secs.forEach(function(p){ if(p===best) p[1].setAttribute('aria-current','true'); else p[1].removeAttribute('aria-current') })}
+  window.addEventListener('scroll',pick,{passive:true}); window.addEventListener('resize',pick); pick();
 })();
 (function(){
   var h=document.querySelector('header'); if(!h) return;
