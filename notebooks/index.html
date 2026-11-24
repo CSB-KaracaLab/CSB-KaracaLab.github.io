@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notebooks · KaracaLab</title>
+<meta name="description" content="Colab notebooks for the KaracaLab tools: a worked example for each, running in the browser with nothing to install.">
+<meta name="author" content="KaracaLab, Izmir Biomedicine and Genome Center">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F7F8FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1420" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://csb-karacalab.github.io/notebooks/">
+<meta property="og:url" content="https://csb-karacalab.github.io/notebooks/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KaracaLab">
+<meta property="og:title" content="Notebooks · KaracaLab">
+<meta property="og:description" content="A worked example for every tool from the lab, running in the browser with nothing to install.">
+<meta property="og:image" content="https://csb-karacalab.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* The lab site's tokens, unchanged, so this page reads as part of it. */
+:root{
+  --paper:#F7F8FA; --surface:#FFFFFF; --ink:#16233A; --ink-2:#55627A; --line:#E1E5EC;
+  --navy:#1F3A6E;
+  --c1:#B03A57; --c2:#896610; --c3:#2F5FA8; --c4:#497634;
+  --sans:"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --maxw:1100px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1420; --surface:#141C2B; --ink:#E9EDF4; --ink-2:#9DA8BB; --line:#253045;
+    --navy:#9DB8F0;
+    --c1:#F08AA6; --c2:#E2C26A; --c3:#8FB2F2; --c4:#9CCB84;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1420; --surface:#141C2B; --ink:#E9EDF4; --ink-2:#9DA8BB; --line:#253045;
+  --navy:#9DB8F0; --c1:#F08AA6; --c2:#E2C26A; --c3:#8FB2F2; --c4:#9CCB84; color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:clamp(16px, calc(10px + .4vw), 19px);scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+     font-size:1.02rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 max(18px,4vw)}
+a{color:inherit;text-decoration-color:color-mix(in srgb,currentColor 35%,transparent);
+  text-underline-offset:3px;text-decoration-thickness:1px;transition:color .15s,text-decoration-color .15s}
+a:hover{color:var(--navy);text-decoration-color:currentColor}
+a:focus-visible{outline:2px solid var(--navy);outline-offset:3px;border-radius:3px}
+h1,h2,h3{font-weight:500;letter-spacing:-.012em;margin:0;text-wrap:balance}
+h1{font-size:2.1rem}
+h2{font-size:1.35rem;margin-bottom:.3rem}
+h3{font-size:1.05rem}
+p{margin:0;text-wrap:pretty}
+.label{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:var(--surface);padding:.5rem .8rem;border-radius:6px;z-index:20}
+
+header{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--paper) 90%,transparent);
+       backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;min-height:58px}
+.brand{display:inline-flex;align-items:center;gap:.5rem;font-size:1.1rem;font-weight:600;
+       text-decoration:none;white-space:nowrap}
+.brand .mark{width:1.6rem;height:1.6rem;flex:none}
+.brand .lab{color:var(--ink-2);font-weight:500}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:.1rem}
+nav a{display:block;font-size:.88rem;font-weight:500;text-decoration:none;white-space:nowrap;
+      padding:.35rem .6rem;border-radius:999px;transition:background-color .15s}
+nav a:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 8%,transparent)}
+
+.intro{padding:3rem 0 2.2rem}
+.intro p{margin-top:.9rem;color:var(--ink-2);max-width:62ch}
+section{padding:0 0 2.6rem}
+.group{margin-top:2.4rem}
+.group > p{color:var(--ink-2);max-width:62ch;margin-bottom:1.1rem}
+
+.nbs{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);
+     border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.nbs > li{background:var(--surface);padding:1.3rem 1.4rem 1.4rem;display:grid;
+          grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:.6rem 2.2rem;align-items:start}
+.nbs .head{display:flex;flex-direction:column;gap:.4rem;min-width:0}
+.nbs h3{display:inline-flex;align-items:center;gap:.5rem}
+.nbs h3::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:50%;background:var(--cc,var(--ink-2))}
+.nbs li.c1{--cc:var(--c1)} .nbs li.c2{--cc:var(--c2)} .nbs li.c3{--cc:var(--c3)} .nbs li.c4{--cc:var(--c4)}
+.nbs .desc{font-size:.95rem;color:var(--ink-2);line-height:1.6;min-width:0}
+.runtime{display:inline-flex;align-items:center;gap:.4rem;font-size:.76rem;letter-spacing:.04em;
+         text-transform:uppercase;color:var(--ink-2)}
+.runtime::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--ink-2)}
+.runtime.gpu::before{background:var(--c1)}
+.runtime.cpu::before{background:var(--c4)}
+.go{margin-top:.7rem;display:flex;gap:.35rem 1.1rem;flex-wrap:wrap;font-size:.9rem}
+.open{display:inline-flex;align-items:center;gap:.4rem;font-weight:500;text-decoration:none;
+      padding:.4rem .8rem;border-radius:999px;border:1px solid var(--line);background:var(--paper);
+      transition:border-color .15s,color .15s;font-size:.88rem}
+.open:hover{border-color:var(--navy);color:var(--navy)}
+
+footer{border-top:1px solid var(--line);padding:2.2rem 0 3rem;font-size:.9rem;color:var(--ink-2)}
+footer .row{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin-top:.5rem}
+
+@media (max-width:820px){
+  .nbs > li{grid-template-columns:1fr;gap:.7rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to main content</a>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="../">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="0" y="2" width="6" height="6" rx="1.1" style="fill:var(--ink)"/>
+        <rect x="8" y="2" width="6" height="6" rx="1.1" style="fill:color-mix(in srgb,var(--ink) 50%,transparent)"/>
+        <rect x="16" y="2" width="6" height="6" rx="1.1" style="fill:var(--c1)"/>
+        <rect x="24" y="2" width="6" height="6" rx="1.1" style="fill:var(--c3)"/>
+        <rect x="8" y="10" width="6" height="6" rx="1.1" style="fill:var(--ink)"/>
+        <rect x="16" y="10" width="6" height="6" rx="1.1" style="fill:var(--c2)"/>
+        <rect x="24" y="10" width="6" height="6" rx="1.1" style="fill:var(--c4)"/>
+        <rect x="16" y="18" width="6" height="6" rx="1.1" style="fill:var(--ink)"/>
+        <rect x="24" y="18" width="6" height="6" rx="1.1" style="fill:color-mix(in srgb,var(--ink) 50%,transparent)"/>
+        <rect x="24" y="26" width="6" height="6" rx="1.1" style="fill:var(--ink)"/>
+      </svg><span>Karaca<span class="lab">Lab</span></span></a>
+    <nav aria-label="Sections"><ul>
+      <li><a href="../#research">Research</a></li>
+      <li><a href="../#software">Software</a></li>
+      <li><a href="https://github.com/CSB-KaracaLab" target="_blank" rel="noopener">GitHub</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+  <section class="intro">
+    <span class="label">KaracaLab</span>
+    <h1>Notebooks</h1>
+    <p>Every tool from the lab has a Google Colab notebook: a worked example that runs in
+      your browser on Google's machines, with nothing to install and no GPU of your own.
+      Each one walks through a real case first, then shows how to point the same steps at
+      your own sequence, structure or trajectory.</p>
+    <p>Three of them need a GPU runtime, which Colab provides free; the rest run on a plain
+      CPU runtime. Opening a notebook does not change it — your copy is yours, and the
+      original stays as it is.</p>
+  </section>
+
+  <section class="group">
+    <h2>Predicting and sampling structures</h2>
+    <p>Getting models of a complex, and deciding which of them to believe.</p>
+    <ul class="nbs">
+      <li class="c3">
+        <div class="head">
+          <h3>MinnieFold</h3>
+          <span class="runtime gpu">GPU runtime</span>
+          <span class="go">
+            <a class="open" href="https://colab.research.google.com/github/CSB-KaracaLab/MinnieFold/blob/main/MinnieFold_Colab.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            <a href="https://github.com/CSB-KaracaLab/MinnieFold" target="_blank" rel="noopener">Repository</a>
+            <a href="https://doi.org/10.1002/prot.26820" target="_blank" rel="noopener">Paper</a>
+          </span>
+        </div>
+        <p class="desc">Predicts a complex eleven different ways — three AlphaFold2 versions,
+          different recycle counts, templates on and off — and ranks the models on the chain
+          you actually care about rather than on a whole-complex score an antibody can
+          inflate. It is a fiftyfold-reduced version of massive sampling, built for targets
+          with shallow alignments. The notebook builds the alignment once and reuses it, and
+          resumes if Colab disconnects.</p>
+      </li>
+      <li class="c3">
+        <div class="head">
+          <h3>BioEmu2</h3>
+          <span class="runtime gpu">GPU runtime</span>
+          <span class="go">
+            <a class="open" href="https://colab.research.google.com/github/CSB-KaracaLab/bioemu2-colab/blob/main/BioEmu2_Colab.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            <a href="https://github.com/CSB-KaracaLab/bioemu2-colab" target="_blank" rel="noopener">Repository</a>
+          </span>
+        </div>
+        <p class="desc">Generates a structural ensemble straight from sequence with Microsoft
+          Research's BioEmu2, rather than a single predicted structure, and puts the result
+          beside a molecular dynamics reference so you can see how much of the real motion it
+          captured. The worked example is a complex, not a monomer, which is the harder case.</p>
+      </li>
+      <li class="c3">
+        <div class="head">
+          <h3>AF2Rank</h3>
+          <span class="runtime gpu">GPU runtime</span>
+          <span class="go">
+            <a class="open" href="https://colab.research.google.com/github/CSB-KaracaLab/af2rank-pipeline/blob/main/notebooks/colab_demo.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            <a href="https://github.com/CSB-KaracaLab/af2rank-pipeline" target="_blank" rel="noopener">Repository</a>
+          </span>
+        </div>
+        <p class="desc">Scores structures you already have by feeding each one back to
+          AlphaFold2 as a template and asking how well it recognises it — a way of ranking
+          models that does not depend on how they were made. Reports actifpTM and interface
+          metrics side by side in one table. Runs the 1BRS example, or your own FASTA and
+          structures.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="group">
+    <h2>Reading an interface</h2>
+    <p>Taking a complex apart: which residues matter, which contacts last, and what the
+      prediction knew that its coordinates do not show.</p>
+    <ul class="nbs">
+      <li class="c1">
+        <div class="head">
+          <h3>PROT-ON</h3>
+          <span class="runtime cpu">CPU runtime</span>
+          <span class="go">
+            <a class="open" href="https://colab.research.google.com/github/CSB-KaracaLab/PROT-ON/blob/main/PROT-ON.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            <a href="https://github.com/CSB-KaracaLab/PROT-ON" target="_blank" rel="noopener">Repository</a>
+            <a href="http://proton.tools.ibg.edu.tr:8001/" target="_blank" rel="noopener">Web server</a>
+            <a href="https://doi.org/10.3389/fmolb.2023.1063971" target="_blank" rel="noopener">Paper</a>
+          </span>
+        </div>
+        <p class="desc">Mutates every position on one side of an interface, scores each
+          mutation, and flags the outliers — the handful that would strengthen binding, and
+          the handful that would abolish it. Filters them for stability and, optionally, for
+          whether evolution has ever tried them. The notebook adds a HADDOCK3 rescoring of
+          the same mutations as a second opinion.</p>
+      </li>
+      <li class="c1">
+        <div class="head">
+          <h3>DynaPIN</h3>
+          <span class="runtime cpu">CPU runtime</span>
+          <span class="go">
+            <a class="open" href="https://colab.research.google.com/github/CSB-KaracaLab/DynaPIN/blob/main/DynaPIN_Colab.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            <a href="https://csb-karacalab.github.io/DynaPIN/">Website</a>
+            <a href="https://github.com/CSB-KaracaLab/DynaPIN" target="_blank" rel="noopener">Repository</a>
+            <a href="https://doi.org/10.1016/j.jmb.2026.169942" target="_blank" rel="noopener">Paper</a>
+          </span>
+        </div>
+        <p class="desc">An interface is usually reported as a list of contacts read off one
+          structure. Over a trajectory that list is not fixed: some contacts hold throughout,
+          others open and close. DynaPIN measures which is which, along with how each residue's
+          exposure and secondary structure change, and how the interaction network shifts
+          frame by frame.</p>
+      </li>
+      <li class="c1">
+        <div class="head">
+          <h3>DistoFlex</h3>
+          <span class="runtime cpu">CPU runtime</span>
+          <span class="go">
+            <a class="open" href="https://colab.research.google.com/github/CSB-KaracaLab/af-distogram-flexibility/blob/main/AF_distogram_Colab.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            <a href="https://github.com/CSB-KaracaLab/af-distogram-flexibility" target="_blank" rel="noopener">Repository</a>
+            <a href="https://doi.org/10.1002/1873-3468.70297" target="_blank" rel="noopener">Paper</a>
+          </span>
+        </div>
+        <p class="desc">AlphaFold predicts a distribution of distances for every residue pair,
+          then collapses it into one set of coordinates. The distribution often knows more
+          than the coordinates do: across a hinge it stays broad, and keeps weight on the
+          bound conformation even when the model is of the unbound protein. The notebook
+          reproduces that on a published case before you try your own.</p>
+      </li>
+    </ul>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Built in the <a href="../">Computational Structural Biology Lab</a> at the Izmir
+      Biomedicine and Genome Center. Every notebook's code lives in its repository, and each
+      tool should be cited through its own paper.</p>
+    <p class="row">
+      <span><a href="https://github.com/CSB-KaracaLab" target="_blank" rel="noopener">github.com/CSB-KaracaLab</a></span>
+      <span><a href="mailto:ezgi.karaca@ibg.edu.tr">ezgi.karaca@ibg.edu.tr</a></span>
+    </p>
+  </div>
+</footer>
+</body>
+</html>
